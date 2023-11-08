@@ -1,0 +1,56 @@
+.activityChart{
+    background-color: #FBFBFB;
+    padding: 15px;
+    position: relative;
+    width: 70%;
+    height: 310px;
+    display: flex;
+    justify-content: center;
+    border-radius: 5px;
+    box-sizing: border-box;
+    margin-top: 7px;
+}
+
+.activityWrap{
+    height: 100%;
+    width: 100%;
+}
+
+
+.recharts-tooltip-cursor{
+    fill: rgba(204, 204, 204, 0.5);
+}
+
+.activityChartTitle{
+    position: absolute;
+    font-size: 15px;
+    font-weight: 500;
+    margin: 0;
+    top: 30px;
+    left: 30px;
+}
+
+.activityYAxis, .activityXAxis{
+    font-weight: 500;
+    font-size: 14px;
+}
+
+.activityLegendColor{
+    color: #74798C;
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.activityChartTooltip{
+    background-color: #E60000;
+    color: white;
+    font-weight: 500;
+    font-size: 8px;
+    height: 50px;
+    width: 39px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-direction: column;
+    padding: 10px 5px;
+}
