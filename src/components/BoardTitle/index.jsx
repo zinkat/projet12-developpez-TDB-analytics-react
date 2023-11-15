@@ -2,7 +2,7 @@ import styled from 'styled-components'
 import PropTypes from 'prop-types'
 
 const HeaderBoard = styled.div`
-  font-size: 3em;
+  font-size: 2.8em;
   font-weight: 500;
 
 `
@@ -14,7 +14,7 @@ const NameStyle = styled.div`
   color: #ff0101;
 `
 const CongratsDiv = styled.div`
-  font-size: 18px;
+  font-size: 20px;
   font-weight: 400;
   line-height: 24px;
   letter-spacing: 0px;

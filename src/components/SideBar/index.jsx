@@ -7,22 +7,22 @@ import styled from 'styled-components'
 const LeftBar = styled.div`
   display: flex;
   flex-direction: column;
-  width: 110px;
-  height: 90vh;
+  width: 100px;
+  height: 91vh;
   background-color: #020203;
   box-shadow: 4px 4px 4px 0px #00000040;
 
 `
 const LeftNav = styled.nav`
   width: 64px;
-  height: 316px;
+  height: 310px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  margin: 180px auto auto auto;
+  margin: auto auto 360px auto;
 `
 const ImgSquare = styled.img`
-  width: 64px;
+  width: 60px;
   height: 60px;
   border-radius: 6px;
 `
@@ -31,10 +31,11 @@ const Copyright = styled.div`
   color: white;
   font-size: 13px;
   padding: 20px 20px 20px 20px;
-  width: 200px;
+  background-color: #020203;
+  width: auto;
   transform: rotate(-90deg);
   position: absolute;
-  bottom: 70px;
+  bottom: 120px;
   left: -50px;
 `
 

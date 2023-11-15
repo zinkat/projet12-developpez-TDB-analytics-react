@@ -3,7 +3,7 @@ import { NavLink } from 'react-router-dom'
 import styled from 'styled-components'
 
 const HeadNav = styled.header`
-  height: 91px;
+  height: 80px;
   background-color: #020203;
   box-shadow: 0px 4px 4px 0px #00000040;
   display: flex;
@@ -13,7 +13,7 @@ const HeadNav = styled.header`
 `
 const LogoImg = styled.img`
   height: 60px;
-  width: 178px;
+  width: 170px;
   margin-left: 10px;
 `
 const NavBar = styled.nav`

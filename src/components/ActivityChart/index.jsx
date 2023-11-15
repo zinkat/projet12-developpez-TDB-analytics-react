@@ -1,34 +1,68 @@
-import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
+import { BarChart, XAxis, Bar, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
 import PropTypes from 'prop-types';
-import '../ActivityChart/activity.css'
+import '../../../src/index.css'
+import styled from 'styled-components'
 
 
+const ActivityWrap = styled.div`
+    height: 100%;
+    width: 100%;`
+
+const ActivityChartTitle = styled.h2`
+    position: absolute;
+    font-size: 15px;
+    font-weight: 500;
+    margin: 0;
+    top: 30px;
+    left: 30px;
+`
+
+const ActivityLegendColor = styled.span`
+color: #74798C;
+    font-size: 14px;
+    font-weight: 500;
+`
+
+const ActivityChartTooltip = styled.div`
+background-color: #E60000;
+    color: white;
+    font-weight: 500;
+    font-size: 8px;
+    height: 50px;
+    width: 39px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-direction: column;
+    padding: 10px 5px;
+
+`
 function  ActivityCharts({dataActivity}){
 
 /* formate les dates est retourne le jour pour axe X  */
-const xAxisTickFormat = (value) => {
-    const valueDay = value.split('-')
-    
+const xAxisTickFormat = (day) => {
+    const valueDay = day.split('-')
     return (Number(valueDay[2]))
 }
 /* personalisation de l'infobulle // affichage des valeurs au survole des barres*/
 function CustomTooltipActivity ({payload, active}) {
     if (active) {
         return (
-            <div className='activityChartTooltip'>
+            <ActivityChartTooltip>
                 <div>{`${payload[0].value}`}kg</div>
                 <div>{`${payload[1].value}`}Kcal</div>
-            </div>
+            </ActivityChartTooltip>
         )
     }
     return null
 }
 
+
 return(
-    <div className='activityWrap'>
-        <h2 className='activityChartTitle'>Activité quotidienne</h2>
+    <ActivityWrap>
+        <ActivityChartTitle>Activité quotidienne</ActivityChartTitle>
         <ResponsiveContainer width="100%" height="100%" >
-            <BarChart className='recharts-tooltip-cursor'
+            <BarChart 
                 data={dataActivity}
                 margin={{
                     top:10,
@@ -36,23 +70,25 @@ return(
                     left: 10,
                     bottom:10
                 }}
+            
             >
                 <CartesianGrid vertical='false' strokeDasharray='3' height={1}  horizontalPoints={[90, 185]}  />
-                <XAxis className='activityXAxis' 
+                <XAxis style={{fontWeight: "500" , fontSize: "14px"}}
                     dataKey='day' 
                     tickFormatter={xAxisTickFormat} 
                     interval='preserveStartEnd' 
                     tickSize='0' 
-                    scale='point'
+                    scale='auto'
                     tickMargin='15' 
-                    stroke='#9B9EAC'/>
+                    stroke='#9B9EAC'
+               />
                 <YAxis 
                     dataKey='calories' 
                     yAxisId='left' 
                     orientation='left' 
                     hide='true'
                    />
-                <YAxis className='activityYAxis' 
+                <YAxis style={{fontWeight: "500" , fontSize: "14px"}}
                     dataKey='kilogram' 
                     yAxisId='right' 
                     orientation='right' 
@@ -61,10 +97,11 @@ return(
                     tickCount='3' 
                     tickSize='0' 
                     axisLine={false} 
+                
                     tickMargin='30' 
                     width={45} 
                     stroke='#9B9EAC' />
-                <Tooltip content={<CustomTooltipActivity />} />
+                <Tooltip  content={<CustomTooltipActivity />} />
                 <Legend 
                     verticalAlign='top' 
                     align='right' 
@@ -72,7 +109,7 @@ return(
                     iconType='circle' 
                     iconSize={8} 
                     formatter={(value) => (
-                        <span className='activityLegendColor'>{value}</span>)}/>
+                        <ActivityLegendColor>{value}</ActivityLegendColor>)}/>
                 <Bar name='Poids (kg)' 
                     dataKey='kilogram'
                     yAxisId='right' 
@@ -84,10 +121,10 @@ return(
                     yAxisId='left' 
                     fill='#E60000' 
                     radius={[25, 25, 0, 0]} 
-                    barSize={7}/>
+                    barSize={7} />
             </BarChart>
         </ResponsiveContainer>
-    </div>
+    </ActivityWrap>
 )
 }
 
