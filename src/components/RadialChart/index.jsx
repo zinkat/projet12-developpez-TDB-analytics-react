@@ -39,8 +39,22 @@ const ScoreText = styled.p`
   text-align: center;
   margin: 0;
 `
+/**
+ * Composant pour afficher un graphique radial du score.
+ *
+ * @component
+ * @param {Object} props - Les propriétés du composant.
+ * @param {Object} props.dataScore - Les données du score à afficher sur le graphique radial.
+ * @returns {JSX.Element} Composant pour afficher le graphique radial du score.
+ */
 function ScoreChart({ dataScore }) {
-  //modification des données utiliser le champs score
+  /**
+   * Fonction pour formater les données du score.
+   *
+   * @param {Object} data - Les données du score.
+   * @returns {Object} Les données du score formatées.
+   */
+
   function formatScore(data) {
     if (data.todayScore) {
       data.score = data.todayScore
@@ -50,12 +64,21 @@ function ScoreChart({ dataScore }) {
 
   formatScore(dataScore)
 
-  //convertir le score en  nombre, et retourne le pourcentage du score
+  /**
+   * convertir le score en  nombre, et retourne le pourcentage du score
+   * Fonction pour calculer le pourcentage du score.
+   *
+   * @param {Object} data - Les données du score.
+   * @returns {number} Le pourcentage du score.
+   */
+
   function calculatePercent(data) {
     const score = Number(data.score)
 
     return Math.round(score * 100)
   }
+
+  // Calcul du pourcentage du score
   const scorePercent = calculatePercent(dataScore)
 
   return (

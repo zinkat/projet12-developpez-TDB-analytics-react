@@ -31,9 +31,23 @@ const SessionDurationChartTooltip = styled.div`
   justify-content: center;
   align-items: center;
 `
+/**
+ * Composant pour afficher un graphique de la durée moyenne des sessions.
+ *
+ * @component
+ * @param {Object} props - Les propriétés du composant.
+ * @param {Array} props.dataSessionDuration - Les données de la durée moyenne des sessions à afficher sur le graphique.
+ * @returns {JSX.Element} Composant pour afficher le graphique de la durée moyenne des sessions.
+ */
 
 function SessionDurationChart({ dataSessionDuration }) {
-  //formattage de l'étiquettes axe X pour afficgher jours de la semaine
+  /**
+   * Fonction pour formater les étiquettes de l'axe X pour afficher les jours de la semaine.
+   *
+   * @param {number} day - Le jour de la semaine (1 pour Lundi, 2 pour Mardi, etc.).
+   * @returns {string} L'abréviation du jour de la semaine.
+   */
+
   const xAxisFormatter = (day) => {
     switch (day) {
       case 1:
@@ -55,7 +69,15 @@ function SessionDurationChart({ dataSessionDuration }) {
     }
   }
 
-  //Personnalisation tooltip
+  /**
+   * Composant pour personnaliser le type de tooltip sur le graphique.
+   *
+   * @component
+   * @param {Object} props - Les propriétés du composant.
+   * @param {Object} props.payload - Les données de la session au survol.
+   * @param {boolean} props.active - L'état d'activité du tooltip (is Tootip active).
+   * @returns {JSX.Element} Composant pour personnaliser le type de tooltip.
+   */
   function CustomToolTypeSessionDuration({ payload, active }) {
     if (active) {
       return (
@@ -67,7 +89,11 @@ function SessionDurationChart({ dataSessionDuration }) {
     return null
   }
 
-  // gestion de l'apparence du font du graph
+  /**
+   * Fonction pour personnaliser l'apparence du fond du graphique au survol de la souris.
+   *
+   * @param {Object} event - L'événement de la souris.
+   */
 
   function customMouseMove(event) {
     let chartSession = document.querySelector('.sessionDurationWrap')
@@ -86,6 +112,12 @@ function SessionDurationChart({ dataSessionDuration }) {
       chartSession.style.background = 'transparent'
     }
   }
+
+  /**
+   * Fonction pour réinitialiser l'apparence du fond du graphique lorsque la souris quitte la zone du graphique.
+   *
+   * @returns initial background
+   */
 
   function customMouseOut() {
     let chartSession = document.querySelector('.sessionDurationWrap')

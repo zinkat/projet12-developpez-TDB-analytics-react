@@ -30,6 +30,18 @@ const NutritionCardDataType = styled.div`
 font-weight: 500;
 font-size: 85%;
 `
+/**
+ * Composant pour afficher une carte d'information nutritionnelle.
+ * 
+ * @component
+ * @param {Object} props - Les propriétés du composant.
+ * @param {string} props.icon - L'URL de l'icône de la carte.
+ * @param {string} props.keyDataValue - La valeur des données nutritionnelles.
+ * @param {number} props.id - L'identifiant de la carte.
+ * @param {string} props.keyDataType - Le type de données nutritionnelles.
+ * @returns {JSX.Element} Composant pour afficher la carte d'information nutritionnelle.
+ */
+
 function NutritionCard({ icon, keyDataValue, id, keyDataType }) {
 
   return (

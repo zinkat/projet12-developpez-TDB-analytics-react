@@ -21,6 +21,16 @@ const CongratsDiv = styled.div`
   text-align: left;
   margin-top: 8px;
 `
+/**
+ * Composant pour afficher le titre de bienvenue et les félicitations.
+ * 
+ * @component
+ * @param {Object} props - Les propriétés du composant.
+ * @param {number} props.id - L'identifiant de l'utilisateur.
+ * @param {string} props.firstname - Le prénom de l'utilisateur.
+ * @returns {JSX.Element} Composant pour afficher le titre et les félicitations.
+ */
+
 function Title({ id, firstname }) {
   return (
     <HeaderBoard>
@@ -34,6 +44,8 @@ function Title({ id, firstname }) {
     </HeaderBoard>
   )
 }
+
+
 Title.propTypes = {
   id: PropTypes.number.isRequired,
   firstname: PropTypes.string.isRequired}

@@ -285,3 +285,4 @@ export function getUserAverageSessions() {
 export function getUserPerformance() {
     return USER_PERFORMANCE;
 }
+

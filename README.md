@@ -1,4 +1,21 @@
-# Getting Started with Create React App
+![Sportsee-App](image.png)
+
+# Prérequis
+- NodeJS (version 12.18)
+- npm
+- yarn
+
+## Installation et lancement du _front-end_
+Cloner le présent repo du front-end: git clone https://github.com/zinkat/projet12-developpez-TDB-analytics-react.git
+En se plaçant dans ce repo du front-end, installer ses dépendances : yarn install
+Lancer le front-end sur le port 3001 : yarn start
+
+# Installation et lancement du _back-end_
+- Cloner le repo du back-end : git clone https://github.com/OpenClassrooms-Student-Center/P9-front-end-dashboard.git
+- En se plaçant dans ce repo du back-end, installer ses dépendances : yarn
+- Lancer le back-end sur le port 3000 (port par défaut) : yarn dev
+
+## Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
