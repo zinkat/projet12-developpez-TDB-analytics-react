@@ -2,12 +2,6 @@ import Title from '../../components/BoardTitle'
 import styled from 'styled-components'
 import { useParams, Navigate } from 'react-router-dom'
 //import {getUserDataMain, getUserActivity, getUserAverageSessions, getUserPerformance,} from '../../services/dataMocked'
-import {
-  getUserDataMain,
-  getUserActivity,
-  getUserAverageSessions,
-  getUserPerformance,
-} from '../../services/dataApi'
 import ActivityCharts from '../../components/ActivityChart/index'
 import SessionDurationChart from '../../components/SessionDurationChart'
 import PerformanceChart from '../../components/PerformanceChart/index'
@@ -17,8 +11,8 @@ import CaloriesIcon from '../../assets/calories-icon.svg'
 import CarbsIcon from '../../assets/carbs-icon.svg'
 import FatIcon from '../../assets/fat-icon.svg'
 import ProteinIcon from '../../assets/protein-icon.svg'
-import { useEffect, useState } from 'react'
 import Loading from '../../components/Loading'
+import useUserData from '../../utils/myHook/index'
 
 const Dashboard = styled.div`
   width: 85%;
@@ -85,56 +79,6 @@ const ScoreChartDiv = styled.div`
   height: 258px;
 `
 
-function useUserData(userId) {
-  const [userData, setUserData] = useState(null)
-  const [userActivity, setUserActivity] = useState(null)
-  const [userSessionDuration, setAverageSessions] = useState(null)
-  const [userPerformance, setUserPerformance] = useState()
-
-  const [isDataLoading, setIsDataLoading] = useState(false)
-  const [isError, setIsError] = useState(false)
-
-  useEffect(() => {
-    const getData = async () => {
-      try {
-        setIsDataLoading(true)
-        setIsError(false)
-        const userDatas = await getUserDataMain(userId)
-        if (!userDatas) {
-          throw new Error('no user')
-        }
-        setUserData(userDatas)
-
-        const userActivities = await getUserActivity(userId)
-        setUserActivity(userActivities)
-
-        const userSessionDuration = await getUserAverageSessions(userId)
-        setAverageSessions(userSessionDuration)
-
-        const userPerformance = await getUserPerformance(userId)
-        setUserPerformance(userPerformance)
-
-        setIsDataLoading(false)
-      } catch (error) {
-        console.error('API Call Error:', error)
-        // Si l'erreur est une erreur 404 (Not Found) isError sur true
-        setIsError(true)
-      }
-    }
-
-    getData()
-  }, [userId])
-
-  return {
-    userData,
-    userActivity,
-    userPerformance,
-    userSessionDuration,
-    isDataLoading,
-    isError,
-  }
-}
-
 /**
  * Composant pour afficher les détails d'un utilisateur.
  *
@@ -148,19 +92,13 @@ function User() {
   console.log('userId:', userId)
 
   //***********utilisation des objets mock ************** */
+
   // const userData = getUserDataMain().find((usersData) => usersData.id === userId)
   // const userActivity = getUserActivity().find((UsersActivity) => UsersActivity.userId === userId)
   // const userSessionDuration = getUserAverageSessions().find((usersSession) => usersSession.userId === userId)
   // const userPerformance = getUserPerformance().find((kind) => kind.userId === userId)
 
-  const {
-    userData,
-    userActivity,
-    userPerformance,
-    userSessionDuration,
-    isDataLoading,
-    isError,
-  } = useUserData(userId)
+  const {userData, userActivity, userPerformance, userSessionDuration, isDataLoading, isError} = useUserData(userId)
 
   if (isError) {
     return <Navigate replace to="/Error404" />
@@ -184,32 +122,41 @@ function User() {
         <Title
           id={userData?.id}
           key={userData?.id}
-          firstname={userData?.userInfos.firstName}
+          firstname={userData && userData?.userInfos.firstName}
         />
         <AsideCard>
           <NutritionCard
             icon={CaloriesIcon}
-            keyDataValue={[`${userData?.keyData.calorieCount}`, 'kCal']}
+            keyDataValue={[
+              `${userData && userData?.keyData.calorieCount}`,
+              'kCal',
+            ]}
             keyDataType="Calories"
-            id={userData.id}
+            id={userData?.id}
           />
           <NutritionCard
             icon={ProteinIcon}
-            keyDataValue={[`${userData?.keyData.proteinCount}`, 'g']}
+            keyDataValue={[
+              `${userData && userData?.keyData.proteinCount}`,
+              'g',
+            ]}
             keyDataType="Proteines"
-            id={userData.id}
+            id={userData?.id}
           />
           <NutritionCard
             icon={CarbsIcon}
-            keyDataValue={[`${userData?.keyData.carbohydrateCount}`, 'g']}
+            keyDataValue={[
+              `${userData && userData?.keyData.carbohydrateCount}`,
+              'g',
+            ]}
             keyDataType="Glucides"
-            id={userData.id}
+            id={userData?.id}
           />
           <NutritionCard
             icon={FatIcon}
-            keyDataValue={[`${userData?.keyData.lipidCount}`, 'g']}
+            keyDataValue={[`${userData && userData?.keyData.lipidCount}`, 'g']}
             keyDataType="Lipides"
-            id={userData.id}
+            id={userData?.id}
           />
         </AsideCard>
       </TitreUser>
@@ -217,22 +164,25 @@ function User() {
       <ActivityChartDiv>
         <ActivityCharts
           key={userData?.id}
-          dataActivity={userActivity?.sessions}
+          dataActivity={userActivity && userActivity?.sessions}
         />
       </ActivityChartDiv>
-
       <ChartsContainer>
         <SessionDurationDiv>
           <SessionDurationChart
             key={userData?.id}
-            dataSessionDuration={userSessionDuration?.sessions}
+            dataSessionDuration={
+              userSessionDuration && userSessionDuration?.sessions
+            }
           />
         </SessionDurationDiv>
         <PerformanceChartDiv>
-          <PerformanceChart dataPerformance={userPerformance.data} />
+          <PerformanceChart
+            dataPerformance={userPerformance && userPerformance.data}
+          />
         </PerformanceChartDiv>
         <ScoreChartDiv>
-          <ScoreChart dataScore={userData} />
+          <ScoreChart dataScore={userData && userData} />
         </ScoreChartDiv>
       </ChartsContainer>
     </Dashboard>
