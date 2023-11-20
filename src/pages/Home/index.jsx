@@ -1,9 +1,6 @@
 import { NavLink } from 'react-router-dom'
 import { getUserDataMain } from '../../services/dataMocked'
-//import { getUserDataMain } from "../../services/dataApi";
 import styled from 'styled-components'
-import { useState, useEffect } from "react";
-import Loading from "../../components/Loading";
 
 const Dashboard = styled.div`
   position: absolute;
@@ -42,32 +39,7 @@ const ListUser = styled.li`
  */
 
 function Home() {
-
-  //const userDatas = getUserDataMain()  
-
-      const [userDatas, setUserDatas] = useState([]);
-
-   useEffect(() => {
-
-      const fetchData = async () => {
-        try {
-          const userData = await getUserDataMain();
-          console.log('userData:', userData);
-          setUserDatas(userData);
-        } catch (error) {
-          console.error('Error fetching user data:', error);
-        }
-      };
-
-      fetchData();
-
-    }, []);
-
-    if (!userDatas) {
-      // Affichage d'un indicateur de chargement
-      console.log('Loading...')
-      return <Loading />
-    }
+  const userDatas = getUserDataMain()
 
   return (
     <Dashboard>

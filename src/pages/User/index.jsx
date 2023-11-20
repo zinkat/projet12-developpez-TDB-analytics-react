@@ -2,7 +2,12 @@ import Title from '../../components/BoardTitle'
 import styled from 'styled-components'
 import { useParams, Navigate } from 'react-router-dom'
 //import {getUserDataMain, getUserActivity, getUserAverageSessions, getUserPerformance,} from '../../services/dataMocked'
-import {getUserDataMain, getUserActivity, getUserAverageSessions, getUserPerformance} from '../../services/dataApi'
+import {
+  getUserDataMain,
+  getUserActivity,
+  getUserAverageSessions,
+  getUserPerformance,
+} from '../../services/dataApi'
 import ActivityCharts from '../../components/ActivityChart/index'
 import SessionDurationChart from '../../components/SessionDurationChart'
 import PerformanceChart from '../../components/PerformanceChart/index'
@@ -79,26 +84,11 @@ const ScoreChartDiv = styled.div`
   width: 31%;
   height: 258px;
 `
-/**
- * Composant pour afficher les détails d'un utilisateur.
- *
- * @component
- * @returns {JSX.Element} Composant pour afficher les détails d'un utilisateur.
- */
 
-function User() {
-  const { id } = useParams()
-  const idNumber = parseInt(id, 10)
-  console.log('idNumber:', idNumber)
-
-  // const userData = getUserDataMain().find((usersData) => usersData.id === idNumber)
-  // const userActivity = getUserActivity().find((UsersActivity) => UsersActivity.userId === idNumber)
-  // const userSessionDuration = getUserAverageSessions().find((usersSession) => usersSession.userId === idNumber)
-  // const userPerformance = getUserPerformance().find((kind) => kind.userId === idNumber)
-
-  const [userData, setUserData] = useState()
-  const [userActivity, setUserActivity] = useState()
-  const [userSessionDuration, setAverageSessions] = useState()
+function useUserData(userId) {
+  const [userData, setUserData] = useState(null)
+  const [userActivity, setUserActivity] = useState(null)
+  const [userSessionDuration, setAverageSessions] = useState(null)
   const [userPerformance, setUserPerformance] = useState()
 
   const [isDataLoading, setIsDataLoading] = useState(false)
@@ -108,39 +98,75 @@ function User() {
     const getData = async () => {
       try {
         setIsDataLoading(true)
-
-        const userDatas = await getUserDataMain(idNumber)
+        setIsError(false)
+        const userDatas = await getUserDataMain(userId)
+        if (!userDatas) {
+          throw new Error('no user')
+        }
         setUserData(userDatas)
 
-        const userActivities = await getUserActivity(idNumber)
+        const userActivities = await getUserActivity(userId)
         setUserActivity(userActivities)
 
-        const userSessionDuration = await getUserAverageSessions(idNumber)
+        const userSessionDuration = await getUserAverageSessions(userId)
         setAverageSessions(userSessionDuration)
 
-        const userPerformance = await getUserPerformance(idNumber)
+        const userPerformance = await getUserPerformance(userId)
         setUserPerformance(userPerformance)
 
         setIsDataLoading(false)
-        setIsError(false)
       } catch (error) {
         console.error('API Call Error:', error)
-        // // afficher l'erreur
-        // console.log('Error status:', error.response?.status);
-        setIsDataLoading(false)
-        // if (error.response && error.response.status === 404) {
-        //   //rediriger vers la page d'erreur
-        //   return <Navigate replace to="/Error404" />
-        // }
         // Si l'erreur est une erreur 404 (Not Found) isError sur true
         setIsError(true)
       }
     }
 
     getData()
-  }, [idNumber])
+  }, [userId])
 
-  if (!userData || !userActivity || !userSessionDuration || !userPerformance  ) {
+  return {
+    userData,
+    userActivity,
+    userPerformance,
+    userSessionDuration,
+    isDataLoading,
+    isError,
+  }
+}
+
+/**
+ * Composant pour afficher les détails d'un utilisateur.
+ *
+ * @component
+ * @returns {JSX.Element} Composant pour afficher les détails d'un utilisateur.
+ */
+
+function User() {
+  const { id } = useParams()
+  const userId = parseInt(id, 10)
+  console.log('userId:', userId)
+
+  //***********utilisation des objets mock ************** */
+  // const userData = getUserDataMain().find((usersData) => usersData.id === userId)
+  // const userActivity = getUserActivity().find((UsersActivity) => UsersActivity.userId === userId)
+  // const userSessionDuration = getUserAverageSessions().find((usersSession) => usersSession.userId === userId)
+  // const userPerformance = getUserPerformance().find((kind) => kind.userId === userId)
+
+  const {
+    userData,
+    userActivity,
+    userPerformance,
+    userSessionDuration,
+    isDataLoading,
+    isError,
+  } = useUserData(userId)
+
+  if (isError) {
+    return <Navigate replace to="/Error404" />
+  }
+
+  if (!userData || !userActivity || !userSessionDuration || !userPerformance) {
     // Affichage d'un indicateur de chargement
     console.log('Loading...')
     return <Loading />
@@ -150,10 +176,6 @@ function User() {
   if (isDataLoading) {
     console.log('Data is loading...')
     return <Loading />
-  }
-
-  if (isError) {
-    return <Navigate replace to="/Error404" />
   }
 
   return (
