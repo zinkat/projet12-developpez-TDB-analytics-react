@@ -4,7 +4,6 @@ import PropTypes from 'prop-types'
 const HeaderBoard = styled.div`
   font-size: 2.8em;
   font-weight: 500;
-
 `
 const TitreStyle = styled.div`
   display: flex;
@@ -23,7 +22,7 @@ const CongratsDiv = styled.div`
 `
 /**
  * Composant pour afficher le titre de bienvenue et les félicitations.
- * 
+ *
  * @component
  * @param {Object} props - Les propriétés du composant.
  * @param {number} props.id - L'identifiant de l'utilisateur.
@@ -36,7 +35,9 @@ function Title({ id, firstname }) {
     <HeaderBoard>
       <TitreStyle>
         Bonjour
-        <NameStyle id={id} key={id}>{firstname}</NameStyle>
+        <NameStyle id={id} key={id}>
+          {firstname}
+        </NameStyle>
       </TitreStyle>
       <CongratsDiv>
         Félicitation ! Vous avez explosé vos objectifs hier 👏
@@ -45,9 +46,9 @@ function Title({ id, firstname }) {
   )
 }
 
-
 Title.propTypes = {
   id: PropTypes.number.isRequired,
-  firstname: PropTypes.string.isRequired}
+  firstname: PropTypes.string.isRequired,
+}
 
 export default Title

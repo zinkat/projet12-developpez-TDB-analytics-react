@@ -34,19 +34,6 @@ function PerformanceChart({ dataPerformance }) {
   // Inversion des données pour afficher dans l'ordre correct sur le graphique radar
   const dataReversed = reverseData(dataPerformance)
 
-  // const xAxisFormatter = (kind) => {
-
-  //     switch (kind){
-  //         case 1: return 'Cardio';
-  //         case 2: return 'Energie';
-  //         case 3: return 'Endurance';
-  //         case 4: return 'Force';
-  //         case 5: return 'Vitesse';
-  //         case 6: return 'Intensité';
-  //         default: return null;
-  //     }
-  // }
-
   /**
    * Fonction pour formater les libellés de l'axe X du graphique radar.
    *

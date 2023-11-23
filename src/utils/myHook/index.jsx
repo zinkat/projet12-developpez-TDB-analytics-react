@@ -1,4 +1,9 @@
-import { getUserDataMain, getUserActivity, getUserAverageSessions, getUserPerformance,} from '../../services/dataApi'
+import {
+  getUserDataMain,
+  getUserActivity,
+  getUserAverageSessions,
+  getUserPerformance,
+} from '../../services/dataApi'
 import { useEffect, useState } from 'react'
 
 /**
@@ -37,7 +42,7 @@ function useUserData(userId) {
         // Récupérer les données principales de l'utilisateur.
         const userDatas = await getUserDataMain(userId)
         if (!userDatas) {
-          //générer une nouvelle erreur lorsque les données principales de l'utilisateur ne sont pas trouvées exécution du bloc catch 
+          //générer une nouvelle erreur lorsque les données principales de l'utilisateur ne sont pas trouvées exécution du bloc catch
           throw new Error('Utilisateur non trouvé')
         }
         setUserData(userDatas)

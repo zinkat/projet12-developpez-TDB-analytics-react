@@ -22,7 +22,7 @@ const Dashboard = styled.div`
   top: 12%;
   // transform: translate(2%,5%);
 `
-const TitreUser = styled.div`
+const UserInfos = styled.div`
   padding-top: 5px;
 `
 const ChartsContainer = styled.div`
@@ -92,13 +92,19 @@ function User() {
   console.log('userId:', userId)
 
   //***********utilisation des objets mock ************** */
-
   // const userData = getUserDataMain().find((usersData) => usersData.id === userId)
   // const userActivity = getUserActivity().find((UsersActivity) => UsersActivity.userId === userId)
   // const userSessionDuration = getUserAverageSessions().find((usersSession) => usersSession.userId === userId)
   // const userPerformance = getUserPerformance().find((kind) => kind.userId === userId)
 
-  const {userData, userActivity, userPerformance, userSessionDuration, isDataLoading, isError} = useUserData(userId)
+  const {
+    userData,
+    userActivity,
+    userPerformance,
+    userSessionDuration,
+    isDataLoading,
+    isError,
+  } = useUserData(userId)
 
   if (isError) {
     return <Navigate replace to="/Error404" />
@@ -118,71 +124,70 @@ function User() {
 
   return (
     <Dashboard>
-      <TitreUser>
-        <Title
-          id={userData?.id}
-          key={userData?.id}
-          firstname={userData && userData?.userInfos.firstName}
-        />
+      <UserInfos>
+        {userData && (
+          <Title id={userData?.id} firstname={userData?.userInfos.firstName} />
+        )}
         <AsideCard>
-          <NutritionCard
-            icon={CaloriesIcon}
-            keyDataValue={[
-              `${userData && userData?.keyData.calorieCount}`,
-              'kCal',
-            ]}
-            keyDataType="Calories"
-            id={userData?.id}
-          />
-          <NutritionCard
-            icon={ProteinIcon}
-            keyDataValue={[
-              `${userData && userData?.keyData.proteinCount}`,
-              'g',
-            ]}
-            keyDataType="Proteines"
-            id={userData?.id}
-          />
-          <NutritionCard
-            icon={CarbsIcon}
-            keyDataValue={[
-              `${userData && userData?.keyData.carbohydrateCount}`,
-              'g',
-            ]}
-            keyDataType="Glucides"
-            id={userData?.id}
-          />
-          <NutritionCard
-            icon={FatIcon}
-            keyDataValue={[`${userData && userData?.keyData.lipidCount}`, 'g']}
-            keyDataType="Lipides"
-            id={userData?.id}
-          />
+          {userData && (
+            <NutritionCard
+              icon={CaloriesIcon}
+              keyDataValue={[`${userData?.keyData.calorieCount}`, 'kCal']}
+              keyDataType="Calories"
+              id={userData?.id}
+            />
+          )}
+          {userData && (
+            <NutritionCard
+              icon={ProteinIcon}
+              keyDataValue={[`${userData?.keyData.proteinCount}`, 'g']}
+              keyDataType="Proteines"
+              id={userData?.id}
+            />
+          )}
+          {userData && (
+            <NutritionCard
+              icon={CarbsIcon}
+              keyDataValue={[`${userData?.keyData.carbohydrateCount}`, 'g']}
+              keyDataType="Glucides"
+              id={userData?.id}
+            />
+          )}
+          {userData && (
+            <NutritionCard
+              icon={FatIcon}
+              keyDataValue={[`${userData?.keyData.lipidCount}`, 'g']}
+              keyDataType="Lipides"
+              id={userData?.id}
+            />
+          )}
         </AsideCard>
-      </TitreUser>
+      </UserInfos>
 
       <ActivityChartDiv>
-        <ActivityCharts
-          key={userData?.id}
-          dataActivity={userActivity && userActivity?.sessions}
-        />
+        {userActivity && (
+          <ActivityCharts
+            key={userData?.id}
+            dataActivity={userActivity?.sessions}
+          />
+        )}
       </ActivityChartDiv>
       <ChartsContainer>
         <SessionDurationDiv>
-          <SessionDurationChart
-            key={userData?.id}
-            dataSessionDuration={
-              userSessionDuration && userSessionDuration?.sessions
-            }
-          />
+          {userSessionDuration && (
+            <SessionDurationChart
+              key={userData?.id}
+              dataSessionDuration={userSessionDuration?.sessions}
+            />
+          )}
         </SessionDurationDiv>
         <PerformanceChartDiv>
-          <PerformanceChart
-            dataPerformance={userPerformance && userPerformance.data}
-          />
+          {userPerformance && (
+            <PerformanceChart dataPerformance={userPerformance.data} />
+          )}
         </PerformanceChartDiv>
         <ScoreChartDiv>
-          <ScoreChart dataScore={userData && userData} />
+          {userData && <ScoreChart dataScore={userData} />}
         </ScoreChartDiv>
       </ChartsContainer>
     </Dashboard>

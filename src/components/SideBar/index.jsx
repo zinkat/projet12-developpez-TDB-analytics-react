@@ -11,7 +11,6 @@ const LeftBar = styled.div`
   height: 91vh;
   background-color: #020203;
   box-shadow: 4px 4px 4px 0px #00000040;
-
 `
 const LeftNav = styled.nav`
   width: 64px;
@@ -26,7 +25,6 @@ const ImgSquare = styled.img`
   height: 60px;
   border-radius: 6px;
 `
-
 const Copyright = styled.div`
   color: white;
   font-size: 13px;

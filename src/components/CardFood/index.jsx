@@ -1,7 +1,6 @@
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
 
-
 const NutritionCardWrap = styled.div`
   background-color: #fbfbfb;
   padding: 5%;
@@ -23,16 +22,16 @@ const NutritionCardText = styled.div`
   padding: 5px;
 `
 const NutritionCardDataValue = styled.div`
-font-weight: 700;
-font-size: 100%;
+  font-weight: 700;
+  font-size: 100%;
 `
 const NutritionCardDataType = styled.div`
-font-weight: 500;
-font-size: 85%;
+  font-weight: 500;
+  font-size: 85%;
 `
 /**
  * Composant pour afficher une carte d'information nutritionnelle.
- * 
+ *
  * @component
  * @param {Object} props - Les propriétés du composant.
  * @param {string} props.icon - L'URL de l'icône de la carte.
@@ -43,7 +42,6 @@ font-size: 85%;
  */
 
 function NutritionCard({ icon, keyDataValue, id, keyDataType }) {
-
   return (
     <NutritionCardWrap key={id}>
       <NutritionCardIcon src={icon} alt="icon nutrition card" />

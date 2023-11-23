@@ -79,13 +79,16 @@ function SessionDurationChart({ dataSessionDuration }) {
    * @returns {JSX.Element} Composant pour personnaliser le type de tooltip.
    */
   function CustomToolTypeSessionDuration({ payload, active }) {
+    // Vérifie si le tooltip est actif (s'il y a survol d'un point de données)
     if (active) {
       return (
+        // Retourne le contenu du tooltip personnalisé
         <SessionDurationChartTooltip>
           <div>{`${payload[0].value}`}min</div>
         </SessionDurationChartTooltip>
       )
     }
+    // Si le tooltip n'est pas actif, retourne null (pas de tooltip affiché)
     return null
   }
 
@@ -97,18 +100,20 @@ function SessionDurationChart({ dataSessionDuration }) {
 
   function customMouseMove(event) {
     let chartSession = document.querySelector('.sessionDurationWrap')
-
+    // Vérifie si le tooltip est actif (s'il y a survol d'un point de données)
     if (event.isTooltipActive) {
-      //largeur ghraph
+      //// Obtenir la largeur du graphique
       let chartWidth = chartSession.offsetWidth
-      //la position horizontale de la souris en pourcentage par rapport à la largeur du graphique
+
+      // Calcule la position horizontale de la souris en pourcentage par rapport à la largeur du graphique
       let mouseXposition = Math.round(
         (event.activeCoordinate.x / chartWidth) * 100
       )
-
+      // Applique un dégradé de couleur en fonction de la position horizontale de la souris
       chartSession.style.background = `linear-gradient(90deg, rgba(255,0,0, 1) ${mouseXposition}%, rgba(0,0,0,0.1) 
           ${mouseXposition}%, rgba(0,0,0,0.1) 100%)`
     } else {
+      // Si le tooltip n'est pas actif, rend le fond du graphique transparent
       chartSession.style.background = 'transparent'
     }
   }
@@ -121,6 +126,7 @@ function SessionDurationChart({ dataSessionDuration }) {
 
   function customMouseOut() {
     let chartSession = document.querySelector('.sessionDurationWrap')
+    // Réinitialise le fond du graphique à transparent lorsque la souris quitte la zone du graphique
     chartSession.style.background = 'transparent'
   }
 

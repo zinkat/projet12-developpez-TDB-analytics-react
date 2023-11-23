@@ -1,18 +1,17 @@
-import styled , { keyframes }from "styled-components"
-
+import styled, { keyframes } from 'styled-components'
 
 const LoadingSection = styled.section`
-     height: 500px;
-   line-height: 500px;
-   text-align: center;
-   font-size: 20px;
-   width: 85%;
-   position: absolute;
-   left: 11%;
-   height: 650px;
-   top: 12%;
+  height: 500px;
+  line-height: 500px;
+  text-align: center;
+  font-size: 20px;
+  width: 85%;
+  position: absolute;
+  left: 11%;
+  height: 650px;
+  top: 12%;
 `
-const spin = keyframes `
+const spin = keyframes`
 0% { transform: rotate(0deg); -webkit-transform: rotate(0deg); -moz-transform: rotate(0deg); -ms-transform: rotate(0deg); -o-transform: rotate(0deg); }
 100% { transform: rotate(360deg); -webkit-transform: rotate(360deg); -moz-transform: rotate(360deg); -ms-transform: rotate(360deg); -o-transform: rotate(360deg); }
 `
@@ -39,13 +38,13 @@ width: 50px;
         -webkit-animation: ${spin} 2s ease-out infinite;
 `
 
-function Loading(){
-    return(
-        <LoadingSection>
-            <LoaderDiv></LoaderDiv>
-            Loading...
-        </LoadingSection>
-    )
+function Loading() {
+  return (
+    <LoadingSection>
+      <LoaderDiv></LoaderDiv>
+      Loading...
+    </LoadingSection>
+  )
 }
 
 export default Loading
